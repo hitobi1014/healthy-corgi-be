@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 @CustomRepositoryTest
-class MemberJpaRepositoryTest @Autowired constructor(
-    private val jpaMemberRepository: MemberJpaRepository
-){
+class MemberCommandRepositoryTest @Autowired constructor(
+    private val jpaMemberRepository: MemberCommandRepository,
+) {
     // 랜덤값 생성
     private fun generateRandomCode(length: Int = 16): String {
         val chars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
@@ -19,14 +19,16 @@ class MemberJpaRepositoryTest @Autowired constructor(
             .map { chars.random() }
             .joinToString("")
     }
+
     @Test
     @DisplayName("운영자->회원 추가, 랜덤코드")
     fun addMemberByAdmin() {
         //given
         val randomCode = generateRandomCode()
-
+        val registeredAt = "241215"
         val member = MemberEntity(
             authCode = randomCode,
+            registeredAt = registeredAt,
         )
 
         //when
