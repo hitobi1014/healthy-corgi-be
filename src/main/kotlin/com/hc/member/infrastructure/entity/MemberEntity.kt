@@ -34,6 +34,13 @@ class MemberEntity(
     @Comment("상태")
     val status: Status = Status.PENDING,
 
+    /*
+    회원이 들어온 날짜, 운영자가 직접 수기로 작성 yyMMdd (ex. 241215)
+    -> 가입을 먼저 했어도 나중에 등록가능성이 있기에 수기로 작성 받음
+     */
+    @Comment("가입일자")
+    val registeredAt: String,
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
