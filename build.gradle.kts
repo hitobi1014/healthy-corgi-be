@@ -46,6 +46,9 @@ dependencies {
     // Querydsl Logging
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
 
+    // 암호화
+    implementation("org.springframework.security:spring-security-crypto:6.2.1")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core") // Mockito 제외

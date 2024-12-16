@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 class AdminController(
     private val memberUseCase: MemberCommandUseCase,
 ) {
-    @PostMapping
+    @PostMapping("/member")
     fun createMember(dto: CreateMemberRequest) {
         // TODO 공통응답 설정후 변경하기
         memberUseCase.createMemberByAdmin(dto)

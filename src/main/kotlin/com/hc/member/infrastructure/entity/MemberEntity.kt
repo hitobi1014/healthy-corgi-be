@@ -46,9 +46,10 @@ class MemberEntity(
     val id: Int? = null,
 ) : DeleteEntity() {
 
-    fun updateMember(loginId: String, password: String, birthday: LocalDate?) {
+    fun signupMember(loginId: String, password: String, birthday: LocalDate?) {
         this.loginId = loginId
         this.password = password
         this.birthday = birthday
+        this.status = Status.ACTIVE
     }
 }

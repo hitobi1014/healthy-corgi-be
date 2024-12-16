@@ -10,15 +10,19 @@ import com.hc.member.dto.response.SignupInfoResponse
 import com.hc.member.infrastructure.repository.command.MemberCommandRepository
 import com.hc.member.infrastructure.repository.query.MemberQueryRepository
 import org.slf4j.LoggerFactory
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 private const val randomLength: Int = 10
 private val logger = LoggerFactory.getLogger("MemberCommandUseCaseImpl")
 
 @Service
+@Transactional
 class MemberCommandUseCaseImpl(
     private val memberQueryRepository: MemberQueryRepository,
     private val memberCommandRepository: MemberCommandRepository,
+    private val passwordEncoder: PasswordEncoder,
 
     ) : MemberCommandUseCase {
     override fun createMemberByAdmin(dto: CreateMemberRequest): Member {
@@ -29,6 +33,7 @@ class MemberCommandUseCaseImpl(
         return savedMember.toDomain()
     }
 
+    // TODO verifyAuthCode -> 테스트 코드
     override fun verifyAuthCode(authCode: String): SignupInfoResponse {
         // TODO 추후 회원 exception 변경
         val findMember = findMemberByAuthCode(authCode)
@@ -44,6 +49,7 @@ class MemberCommandUseCaseImpl(
         return SignupInfoResponse(name = findMember.name, authCode = findMember.authCode)
     }
 
+    // TODO signupMember -> 테스트 코드
     override fun signupMember(dto: SignupMemberRequest): Member {
         /*
         1. 찾은 회원 정보를 변경감지로 엔티티 수정
@@ -51,13 +57,11 @@ class MemberCommandUseCaseImpl(
             - 클라이언트로부터 받은 입력값 수정 + 회원 상태 Active로 변경
          */
         val findMember = findMemberByAuthCode(dto.authCode)
-
-        // TODO 비밀번호 salt 암호화
-        val password = "암호화된비밀번호"
+        val password = passwordEncoder.encode(dto.password)
 
         // 회원 저장
-        findMember.updateMember(dto.loginId, password, dto.birthday)
-
+        findMember.signupMember(dto.loginId, password, dto.birthday)
+        // TODO 암호화
         TODO()
     }
 
