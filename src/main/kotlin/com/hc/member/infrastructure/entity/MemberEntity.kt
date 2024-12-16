@@ -11,28 +11,27 @@ import java.time.LocalDate
 class MemberEntity(
     @Column(length = 50, unique = true)
     @Comment("로그인ID")
-    val loginId: String? = null,
+    var loginId: String? = null,
 
-    @Column(length = 20)
     @Comment("비밀번호")
-    val password: String? = null,
+    var password: String? = null,
 
     @Column(length = 30)
     @Comment("이름")
-    val name: String? = null,
+    var name: String,
 
     @Comment("프로필 URL")
-    val profileImageUrl: String? = null,
+    var profileImageUrl: String? = null,
 
-    @Column(length = 16, unique = true)
+    @Column(length = 10, unique = true)
     @Comment("회원 인증 코드")
-    val authCode: String,
+    val authCode: String, // 시스템에서 생성
 
     @Comment("생일")
-    val birthday: LocalDate? = null,
+    var birthday: LocalDate? = null,
 
     @Comment("상태")
-    val status: Status = Status.PENDING,
+    var status: Status = Status.PENDING,
 
     /*
     회원이 들어온 날짜, 운영자가 직접 수기로 작성 yyMMdd (ex. 241215)
@@ -45,4 +44,11 @@ class MemberEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     val id: Int? = null,
-) : DeleteEntity()
+) : DeleteEntity() {
+
+    fun updateMember(loginId: String, password: String, birthday: LocalDate?) {
+        this.loginId = loginId
+        this.password = password
+        this.birthday = birthday
+    }
+}

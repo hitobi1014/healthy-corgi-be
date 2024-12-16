@@ -1,7 +1,7 @@
 package com.hc.member.domain.aggregates
 
 import com.hc.member.domain.enum.Status
-import com.hc.member.dto.request.CreateMemberRequest
+import com.hc.admin.dto.request.CreateMemberRequest
 import java.time.LocalDate
 
 data class Member(

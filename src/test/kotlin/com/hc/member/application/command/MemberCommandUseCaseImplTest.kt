@@ -1,6 +1,6 @@
 package com.hc.member.application.command
 
-import com.hc.member.dto.request.CreateMemberRequest
+import com.hc.admin.dto.request.CreateMemberRequest
 import com.hc.member.infrastructure.entity.MemberEntity
 import com.hc.member.infrastructure.repository.command.MemberCommandRepository
 import com.hc.member.infrastructure.repository.query.MemberQueryRepository
@@ -39,7 +39,7 @@ class MemberCommandUseCaseImplTest {
             id = 1,
             name = request.name,
             registeredAt = request.registeredAt,
-            authCode = "1234567890abcdef"
+            authCode = "qwert12345" // 10자리
         )
         every { memberCommandRepository.save(any()) } returns memberEntity
 

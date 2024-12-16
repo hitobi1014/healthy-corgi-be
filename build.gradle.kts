@@ -38,7 +38,12 @@ dependencies {
     // Development Tools
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
-    // Logging
+    // Logging API
+    // SLF4J Logging API
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation("ch.qos.logback:logback-classic:1.4.11")
+
+    // Querydsl Logging
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
 
     // Test
