@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired
 class MemberCommandRepositoryTest @Autowired constructor(
     private val jpaMemberRepository: MemberCommandRepository,
 ) {
+    // 암호화 자릿수
+    val randomLength = 10
+
     // 랜덤값 생성
-    private fun generateRandomCode(length: Int = 16): String {
+    private fun generateRandomCode(length: Int = randomLength): String {
         val chars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
         return (1..length)
             .map { chars.random() }
@@ -27,6 +30,7 @@ class MemberCommandRepositoryTest @Autowired constructor(
         val randomCode = generateRandomCode()
         val registeredAt = "241215"
         val member = MemberEntity(
+            name = "한강",
             authCode = randomCode,
             registeredAt = registeredAt,
         )

@@ -2,6 +2,7 @@ package com.hc.member.domain.aggregates
 
 import com.hc.member.domain.enum.Status
 import com.hc.admin.dto.request.CreateMemberRequest
+import com.hc.member.domain.enum.Role
 import java.time.LocalDate
 
 data class Member(
@@ -14,6 +15,7 @@ data class Member(
     val birthday: LocalDate?,
     val status: Status?,
     val registeredAt: String,
+    val role: Role?,
 ) {
     companion object {
         fun addMemberByAdmin(dto: CreateMemberRequest, authCode: String): Member {
@@ -26,7 +28,8 @@ data class Member(
                 authCode = authCode,
                 birthday = null,
                 status = null,
-                registeredAt = dto.registeredAt
+                registeredAt = dto.registeredAt,
+                role = null
             )
         }
     }

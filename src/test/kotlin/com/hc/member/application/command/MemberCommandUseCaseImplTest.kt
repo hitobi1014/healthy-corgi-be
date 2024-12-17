@@ -9,6 +9,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.security.crypto.password.PasswordEncoder
 import kotlin.test.assertEquals
 
 //@CustomSpringBootTest
@@ -17,11 +18,16 @@ class MemberCommandUseCaseImplTest {
 
     private val memberQueryRepository = mockk<MemberQueryRepository>()
     private val memberCommandRepository = mockk<MemberCommandRepository>()
+    private val passwordEncoder = mockk<PasswordEncoder>()
 
     @BeforeEach
     fun setUp() {
         memberCommandUseCase =
-            MemberCommandUseCaseImpl(memberQueryRepository, memberCommandRepository)
+            MemberCommandUseCaseImpl(
+                memberQueryRepository,
+                memberCommandRepository,
+                passwordEncoder
+            )
     }
 
     @Test

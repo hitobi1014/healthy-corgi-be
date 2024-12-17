@@ -1,5 +1,6 @@
 package com.hc.member.infrastructure.entity
 
+import com.hc.member.domain.enum.Role
 import com.hc.member.domain.enum.Status
 import com.hc.shared.common.DeleteEntity
 import jakarta.persistence.*
@@ -32,6 +33,9 @@ class MemberEntity(
 
     @Comment("상태")
     var status: Status = Status.PENDING,
+
+    @Comment("회원구분")
+    val role: Role = Role.Member,
 
     /*
     회원이 들어온 날짜, 운영자가 직접 수기로 작성 yyMMdd (ex. 241215)
