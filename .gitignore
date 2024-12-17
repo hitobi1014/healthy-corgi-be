@@ -284,3 +284,6 @@ $RECYCLE.BIN/
 
 # application 설정파일
 application.*
+
+# 포맷용 json 파일 제외
+beautyJson.json
