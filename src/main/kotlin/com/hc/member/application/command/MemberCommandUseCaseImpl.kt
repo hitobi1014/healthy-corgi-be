@@ -33,7 +33,6 @@ class MemberCommandUseCaseImpl(
         return savedMember.toDomain()
     }
 
-    // TODO verifyAuthCode -> 테스트 코드
     override fun verifyAuthCode(authCode: String): SignupInfoResponse {
         // TODO 추후 회원 exception 변경
         val findMember = findMemberByAuthCode(authCode)
@@ -49,7 +48,6 @@ class MemberCommandUseCaseImpl(
         return SignupInfoResponse(name = findMember.name, authCode = findMember.authCode)
     }
 
-    // TODO signupMember -> 테스트 코드
     override fun signupMember(dto: SignupMemberRequest): Member {
         /*
         1. 찾은 회원 정보를 변경감지로 엔티티 수정
@@ -61,8 +59,8 @@ class MemberCommandUseCaseImpl(
 
         // 회원 저장
         findMember.signupMember(dto.loginId, password, dto.birthday)
-        // TODO 암호화
-        TODO()
+
+        return findMember.toDomain()
     }
 
     private fun findMemberByAuthCode(authCode: String) =
