@@ -1,6 +1,7 @@
 package com.hc.member.application.command
 
 import com.hc.admin.dto.request.CreateMemberRequest
+import com.hc.common.CustomSpringBootTest
 import com.hc.member.domain.enum.Status
 import com.hc.member.dto.request.SignupMemberRequest
 import com.hc.member.dto.response.SignupInfoResponse

@@ -29,7 +29,7 @@ fun Member.toEntity(): MemberEntity {
         authCode = this.authCode,
         birthday = this.birthday,
         registeredAt = this.registeredAt,
-        role = this.role ?: Role.Member
+        role = this.role ?: Role.MEMBER
         // 추후 status 값 명시적으로 변환로직 필요하면 추가
     )
 }
