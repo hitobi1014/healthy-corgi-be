@@ -11,12 +11,21 @@ import java.time.temporal.TemporalAdjusters
  */
 
 
-fun DateValidation(workoutDate: LocalDate): Boolean {
+/**
+ * 운동일자가 현재일기준 직전 월요일 ~ 직후 일요일 범위 안에 있는지 검증
+ * @param 운동일
+ * @return 날짜범위 안에 있으면 true, 아니면 false
+ */
+fun isWorkoutDateInCurrentWeek(workoutDate: LocalDate): Boolean {
     val today = LocalDate.now()
     val previousMonday = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
     val nextSunday = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
 
-    return workoutDate.isAfter(previousMonday) && workoutDate.isBefore(nextSunday)
+    if (!workoutDate.isBefore(previousMonday) && !workoutDate.isAfter(nextSunday)) {
+        return true
+    }
+
+    throw IllegalStateException("이번주에 진행한 운동만 등록이 가능합니다.")
 }
 
 fun isSameDate(pictureDate: LocalDate, workoutDate: LocalDate): Boolean {

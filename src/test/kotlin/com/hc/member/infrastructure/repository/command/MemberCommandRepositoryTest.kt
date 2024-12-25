@@ -25,7 +25,7 @@ class MemberCommandRepositoryTest @Autowired constructor(
 
     @Test
     @DisplayName("운영자->회원 추가, 랜덤코드")
-    fun addMemberByAdmin() {
+    fun save_whenMemberSave_shouldReturnSavedMember() {
         //given
         val randomCode = generateRandomCode()
         val registeredAt = "241215"

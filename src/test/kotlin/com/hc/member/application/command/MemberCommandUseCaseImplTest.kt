@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -49,7 +50,8 @@ class MemberCommandUseCaseImplTest {
     }
 
     @Test
-    fun `운영자가 회원 생성시 정상적으로 저장`() {
+    @DisplayName("운영자가 회원 생성시 정상적으로 저장")
+    fun createMemberByAdmin_whenMemberDto_shouldReturnSavedMember() {
         //given
         val request = CreateMemberRequest(
             name = "한강",
@@ -80,7 +82,8 @@ class MemberCommandUseCaseImplTest {
     }
 
     @Test
-    fun `회원 상태가 Pending일 때 인증 성공`() {
+    @DisplayName("회원 상태가 Pending일 때 인증 성공")
+    fun verifyAuthCode_whenAuthCodeIsCorrect_shouldReturnSignupInfoResponse() {
         //given
         val authCode = randomAuthCode()
         val memberEntity = MemberEntity(
@@ -101,7 +104,8 @@ class MemberCommandUseCaseImplTest {
     }
 
     @Test
-    fun `회원 상태가 Pending이 아닌 경우 예외 발생`() {
+    @DisplayName("회원 상태가 Pending이 아닌 경우 예외 발생")
+    fun verifyAuthCode_whenStatusIsNotPending_shouldThrowIllegalStateException() {
         // given
         val authCode = randomAuthCode()
         val memberEntity = MemberEntity(
@@ -121,7 +125,8 @@ class MemberCommandUseCaseImplTest {
     }
 
     @Test
-    fun `잘못된 인증코드로 예외 발생`() {
+    @DisplayName("잘못된 인증코드로 예외 발생")
+    fun verifyAuthCode_whenAuthCodeIsIncorrect_shouldThrowIllegalStateException() {
         // given
         val invalidAuthCode = "invalidAuthCode"
         every { memberQueryRepository.findByAuthCode(invalidAuthCode) } returns null // 없는 인증코드
@@ -134,7 +139,8 @@ class MemberCommandUseCaseImplTest {
     }
 
     @Test
-    fun `회원가입 성공 - 회원 상태가 Active로 변경되고 정보가 저장된다`() {
+    @DisplayName("회원가입 성공 - 회원 상태가 Active로 변경되고 정보가 저장된다")
+    fun signupMember_whenSignupMemberDto_shouldReturnSavedMember() {
         // given
         val authCode = randomAuthCode()
         val encodedPassword = "encodedPassword"
