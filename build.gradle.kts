@@ -49,6 +49,9 @@ dependencies {
     // 암호화
     implementation("org.springframework.security:spring-security-crypto:6.2.1")
 
+    // 사진메타 가져오기
+    implementation("com.drewnoakes:metadata-extractor:2.18.0")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core") // Mockito 제외
