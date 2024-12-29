@@ -28,7 +28,7 @@ fun isWorkoutDateInCurrentWeek(workoutDate: LocalDate): Boolean {
     throw IllegalStateException("이번주에 진행한 운동만 등록이 가능합니다.")
 }
 
-fun isSameDate(pictureDate: LocalDate, workoutDate: LocalDate): Boolean {
+fun isSamePicDateAndWorkoutDate(pictureDate: LocalDate, workoutDate: LocalDate): Boolean {
     if (pictureDate.isEqual(workoutDate)) {
         return true
     }

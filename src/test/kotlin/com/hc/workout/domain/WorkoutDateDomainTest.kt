@@ -1,6 +1,6 @@
 package com.hc.workout.domain
 
-import com.hc.workout.domain.policy.validation.isSameDate
+import com.hc.workout.domain.policy.validation.isSamePicDateAndWorkoutDate
 import com.hc.workout.domain.policy.validation.isWorkoutDateInCurrentWeek
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -19,7 +19,7 @@ class WorkoutDateDomainTest {
         val workoutDate = LocalDate.of(2024, 12, 24)
 
         //when
-        val result = isSameDate(pictureDate, workoutDate)
+        val result = isSamePicDateAndWorkoutDate(pictureDate, workoutDate)
 
         //then
         assertThat(result).isTrue
@@ -34,7 +34,7 @@ class WorkoutDateDomainTest {
 
         //when
         //then
-        assertThatThrownBy { isSameDate(pictureDate, workoutDate) }
+        assertThatThrownBy { isSamePicDateAndWorkoutDate(pictureDate, workoutDate) }
             .isInstanceOf(IllegalStateException::class.java)
     }
 

@@ -3,7 +3,7 @@ package com.hc.workout.application.dto
 import java.time.LocalDateTime
 
 data class PhotoMetadata(
-    val findName: String,
+    val fileName: String,
     val fileSize: Long,
     val mimeType: String,
     val deviceModel: String?,
