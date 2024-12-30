@@ -17,7 +17,10 @@ import java.time.LocalDate
 class PhotoUseCaseImpl : PhotoUseCase {
     private val log = LoggerFactory.getLogger(PhotoUseCaseImpl::class.java)
 
-    override fun verifyWorkoutPicture(picture: MultipartFile, workoutDate: LocalDate) {
+    override fun verifyWorkoutPicture(
+        picture: MultipartFile,
+        workoutDate: LocalDate,
+    ): PhotoMetadata {
         // step00. 메타정보 추출
         val photoMetadata = extractMetaInfo(picture)
 
@@ -26,6 +29,8 @@ class PhotoUseCaseImpl : PhotoUseCase {
 
         // step02. 사진 촬영일이 인증 주간 범위 안에 있는지 검증
         isWorkoutDateInCurrentWeek(workoutDate)
+
+        return photoMetadata
     }
 
 

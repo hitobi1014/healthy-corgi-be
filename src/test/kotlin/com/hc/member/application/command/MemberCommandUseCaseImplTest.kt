@@ -1,7 +1,6 @@
 package com.hc.member.application.command
 
 import com.hc.admin.dto.request.CreateMemberRequest
-import com.hc.common.CustomSpringBootTest
 import com.hc.member.domain.enum.Status
 import com.hc.member.dto.request.SignupMemberRequest
 import com.hc.member.dto.response.SignupInfoResponse
@@ -21,7 +20,7 @@ import kotlin.test.assertEquals
 
 //@CustomSpringBootTest
 class MemberCommandUseCaseImplTest {
-    private lateinit var memberCommandUseCase: MemberCommandUseCaseImpl
+    private lateinit var memberCommandUseCase: MemberCommandUseCase
 
     private val randomLength = 10
 

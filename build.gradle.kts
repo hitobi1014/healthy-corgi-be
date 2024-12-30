@@ -52,6 +52,9 @@ dependencies {
     // 사진메타 가져오기
     implementation("com.drewnoakes:metadata-extractor:2.18.0")
 
+    // validation
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core") // Mockito 제외
