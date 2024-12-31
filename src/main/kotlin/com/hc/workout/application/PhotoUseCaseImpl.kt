@@ -27,22 +27,19 @@ class PhotoUseCaseImpl : PhotoUseCase {
         // step01. 사진 촬영시각이 운동일자와 동일한지 검증
         isSamePicDateAndWorkoutDate(photoMetadata.originalTime.toLocalDate(), workoutDate)
 
-        // step02. 사진 촬영일이 인증 주간 범위 안에 있는지 검증
-        isWorkoutDateInCurrentWeek(workoutDate)
-
         return photoMetadata
     }
 
 
     //    private fun extractMetaInfo(file: MultipartFile): PhotoMetadata {
-    companion object
+//    companion object
 
     /**
      * 표준 EXIF 메타 정보를 추출해서 DTO로 변환
      * @param 모바일로 업로드한 사진파일
      * @return 추출된 메타정보 -> PhotoMetaData
      */
-    fun extractMetaInfo(file: MultipartFile): PhotoMetadata {
+    private fun extractMetaInfo(file: MultipartFile): PhotoMetadata {
         val metadata = ImageMetadataReader.readMetadata(file.inputStream)
 
         // EXIF 메타데이터 디렉토리 가져오기
