@@ -30,10 +30,6 @@ class PhotoUseCaseImpl : PhotoUseCase {
         return photoMetadata
     }
 
-
-    //    private fun extractMetaInfo(file: MultipartFile): PhotoMetadata {
-//    companion object
-
     /**
      * 표준 EXIF 메타 정보를 추출해서 DTO로 변환
      * @param 모바일로 업로드한 사진파일
@@ -46,7 +42,6 @@ class PhotoUseCaseImpl : PhotoUseCase {
         val exifSubIfd = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory::class.java)
         val exifIfd0 = metadata.getFirstDirectoryOfType(ExifIFD0Directory::class.java)
 
-        // TODO 갤럭시 추출, 아이폰은 추후 테스트
         val originalDate = exifSubIfd?.getString(ExifSubIFDDirectory.TAG_DATETIME_ORIGINAL)
             ?: exifIfd0?.getString(ExifIFD0Directory.TAG_DATETIME)
 
@@ -59,7 +54,7 @@ class PhotoUseCaseImpl : PhotoUseCase {
         val deviceModel = exifIfd0?.getString(ExifIFD0Directory.TAG_MODEL)
 
         val takenDate = convertToDateTimeByTimeString(originalDate)
-
+        
         val contentType = file.contentType ?: ""
         val originalFilename = file.originalFilename ?: ""
         val fileSize = file.size // 저장은 byte 단위, 클라이언트 출력할때 해당 화면에서 변환해서 보이기
@@ -71,8 +66,6 @@ class PhotoUseCaseImpl : PhotoUseCase {
         log.info("기기 모델 : $deviceModel")
         log.info("mimeType : $contentType")
         log.info("기기 제조사 : $deviceMake")
-
-        // TODO 기기별로 촬영시간 가져오는게 다르다면 찾아서 분기처리 , 동일하면 위 함수 그대로 사용
 
         return PhotoMetadata(
             fileName = originalFilename,
