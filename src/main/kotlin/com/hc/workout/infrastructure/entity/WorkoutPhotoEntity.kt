@@ -13,6 +13,15 @@ class WorkoutPhotoEntity(
     @Comment("사진URL")
     val photoUrl: String,
 
+    @Comment("파일크기")
+    val fileSize: Long,
+
+    @Comment("제조사")
+    val deviceMaker: String,
+
+    @Comment("기기 모델")
+    val deviceModel: String,
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "photo_id")
