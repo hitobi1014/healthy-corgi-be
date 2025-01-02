@@ -1,5 +1,7 @@
 package com.hc.workout.application
 
+import com.hc.workout.domain.policy.validation.*
+
 import com.hc.workout.application.dto.PhotoMetadata
 import io.mockk.every
 import io.mockk.mockk
@@ -8,13 +10,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.mock.web.MockMultipartFile
-import java.io.File
-import java.io.FileInputStream
-import java.io.InputStream
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.temporal.TemporalAdjusters
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -33,59 +30,48 @@ class PhotoUseCaseTest {
         //given
         val workoutDate = LocalDate.of(2024, 12, 26)
         val mockMultipartFile = makeMockMultipartFile()
+        val multipartList = listOf(mockMultipartFile)
         val fileName = "20241226_065800.jpg"
 
         val expectedMetadata = PhotoMetadata(
             fileName = fileName,
             fileSize = 4L,
             mimeType = "image/jpeg",
-            deviceModel = "samsung",
+            deviceModel = "galaxy s24",
+            deviceMaker = "samsung",
             originalTime = LocalDateTime.of(2024, 12, 26, 6, 58, 0)
         )
+        val metadataList = listOf(expectedMetadata)
+
         every {
             photoUseCase.verifyWorkoutPicture(
-                mockMultipartFile,
+                multipartList,
                 workoutDate
             )
-        } returns expectedMetadata
+        } returns metadataList
 
         //when
-        val result = photoUseCase.verifyWorkoutPicture(mockMultipartFile, workoutDate)
+        val result = photoUseCase.verifyWorkoutPicture(multipartList, workoutDate)
 
         //then
         assertNotNull(result)
-        assertEquals(fileName, result.fileName)
-        assertTrue(result.fileSize > 0)
-        assertEquals("image/jpeg", result.mimeType)
-        assertEquals(workoutDate, result.originalTime.toLocalDate())
+        assertEquals(fileName, result[0].fileName)
+        assertTrue(result[0].fileSize > 0)
+        assertEquals("image/jpeg", result[0].mimeType)
+        assertEquals(workoutDate, result[0].originalTime.toLocalDate())
     }
 
     @Test
     @DisplayName("촬영일자와 운동일자가 다른경우")
-    fun verifyWorkoutPicture_whenWrongPictureDate_shouldThrowIllegalStateException() {
+    fun isSamePicDateAndWorkoutDate_whenWrongPictureDate_shouldThrowIllegalStateException() {
         //given
         val workoutDate = LocalDate.of(2024, 12, 20)
-        val mockMultipartFile = makeMockMultipartFile()
+        val pictureDate = LocalDate.of(2024, 12, 26)
 
-        val expectedMetadata = PhotoMetadata(
-            fileName = "20241226_065800.jpg",
-            fileSize = 4L,
-            mimeType = "image/jpeg",
-            deviceModel = "samsung",
-            originalTime = LocalDateTime.of(2024, 12, 26, 6, 58, 0)
-        )
-        every {
-            photoUseCase.verifyWorkoutPicture(
-                mockMultipartFile,
-                workoutDate
-            )
-        } returns expectedMetadata
-
-        //when
+        //when & then
         assertThrows<IllegalStateException> {
-            photoUseCase.verifyWorkoutPicture(mockMultipartFile, workoutDate)
+            isSamePicDateAndWorkoutDate(pictureDate, workoutDate)
         }
-        //then
     }
 
 
@@ -98,33 +84,3 @@ class PhotoUseCaseTest {
         )
     }
 }
-
-//fun main() {
-//    val photoUseCaseImpl = PhotoUseCaseImpl()
-//
-////    val fileName = "src/test/resources/test-image/20241226_065853.jpg"
-//
-//    val now = LocalDateTime.now()
-//    println("현재 시간 : $now")
-//
-//    val today = now.toLocalDate()
-//
-//    val previousMonday = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
-//    val nextSunday = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
-//
-//    println("previousMonday : $previousMonday")
-//    println("nextSunday : $nextSunday")
-//
-//    val fileName = "src/test/resources/test-image/IMG_6095.JPG"
-//    val imageFile = File(fileName)
-//    val inputStream = FileInputStream(imageFile)
-//
-//    val multipart = MockMultipartFile(
-//        "file",
-//        imageFile.name,
-//        "image/jpeg",
-//        inputStream
-//    )
-//
-////    photoUseCaseImpl.extractMetaInfo(multipart)
-//}

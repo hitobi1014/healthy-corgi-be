@@ -15,7 +15,7 @@ data class SaveWorkoutRequest(
      * 만족도
      */
     @field:NotNull(message = "운동인증 사진은 필수입니다.")
-    val photo: MultipartFile,
+    val photo: List<MultipartFile>,
 
     @field:NotNull(message = "운동일시는 필수입니다.")
     val workoutDateTime: LocalDateTime,

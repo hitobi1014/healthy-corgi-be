@@ -18,16 +18,22 @@ class PhotoUseCaseImpl : PhotoUseCase {
     private val log = LoggerFactory.getLogger(PhotoUseCaseImpl::class.java)
 
     override fun verifyWorkoutPicture(
-        picture: MultipartFile,
+        pictureList: List<MultipartFile>,
         workoutDate: LocalDate,
-    ): PhotoMetadata {
+    ): List<PhotoMetadata> {
         // step00. 메타정보 추출
-        val photoMetadata = extractMetaInfo(picture)
+        val metadataList = pictureList.map { picture -> extractMetaInfo(picture) }
+            .toList()
 
         // step01. 사진 촬영시각이 운동일자와 동일한지 검증
-        isSamePicDateAndWorkoutDate(photoMetadata.originalTime.toLocalDate(), workoutDate)
+        metadataList.forEach { photoMetadata ->
+            isSamePicDateAndWorkoutDate(
+                photoMetadata.originalTime.toLocalDate(),
+                workoutDate
+            )
+        }
 
-        return photoMetadata
+        return metadataList
     }
 
     /**
@@ -50,11 +56,11 @@ class PhotoUseCaseImpl : PhotoUseCase {
         }
 
         // 디바이스 정보 확인
-        val deviceMake = exifIfd0?.getString(ExifIFD0Directory.TAG_MAKE)
+        val deviceMaker = exifIfd0?.getString(ExifIFD0Directory.TAG_MAKE) ?: ""
         val deviceModel = exifIfd0?.getString(ExifIFD0Directory.TAG_MODEL)
 
         val takenDate = convertToDateTimeByTimeString(originalDate)
-        
+
         val contentType = file.contentType ?: ""
         val originalFilename = file.originalFilename ?: ""
         val fileSize = file.size // 저장은 byte 단위, 클라이언트 출력할때 해당 화면에서 변환해서 보이기
@@ -65,13 +71,14 @@ class PhotoUseCaseImpl : PhotoUseCase {
         log.info("파일사이즈 : $fileSize")
         log.info("기기 모델 : $deviceModel")
         log.info("mimeType : $contentType")
-        log.info("기기 제조사 : $deviceMake")
+        log.info("기기 제조사 : $deviceMaker")
 
         return PhotoMetadata(
             fileName = originalFilename,
             fileSize = fileSize,
             mimeType = contentType,
             deviceModel = deviceModel,
+            deviceMaker = deviceMaker,
             originalTime = takenDate
         )
     }
