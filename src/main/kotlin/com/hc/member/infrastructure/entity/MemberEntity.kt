@@ -35,7 +35,7 @@ class MemberEntity(
     var status: Status = Status.PENDING,
 
     @Comment("회원구분")
-    val role: Role = Role.Member,
+    val role: Role = Role.MEMBER,
 
     /*
     회원이 들어온 날짜, 운영자가 직접 수기로 작성 yyMMdd (ex. 241215)

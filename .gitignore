@@ -287,3 +287,6 @@ application.*
 
 # 포맷용 json 파일 제외
 beautyJson.json
+
+# test-image 폴더 내의 모든 파일과 하위 폴더 제외
+**/test-image/**
