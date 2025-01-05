@@ -55,6 +55,9 @@ dependencies {
     // validation
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
+    // S3
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "mockito-core") // Mockito 제외
