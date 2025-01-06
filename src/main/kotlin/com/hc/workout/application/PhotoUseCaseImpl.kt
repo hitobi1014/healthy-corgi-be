@@ -18,22 +18,25 @@ class PhotoUseCaseImpl : PhotoUseCase {
     private val log = LoggerFactory.getLogger(PhotoUseCaseImpl::class.java)
 
     override fun verifyWorkoutPicture(
-        pictureList: List<MultipartFile>,
+        photo: MultipartFile,
         workoutDate: LocalDate,
-    ): List<PhotoMetadata> {
+    ): PhotoMetadata {
         // step00. 메타정보 추출
-        val metadataList = pictureList.map { picture -> extractMetaInfo(picture) }
-            .toList()
+//        val metadataList = photo.map { picture -> extractMetaInfo(picture) }
+//            .toList()
+
+        val extractMetaInfo = extractMetaInfo(photo)
 
         // step01. 사진 촬영시각이 운동일자와 동일한지 검증
-        metadataList.forEach { photoMetadata ->
-            isSamePicDateAndWorkoutDate(
-                photoMetadata.originalTime.toLocalDate(),
-                workoutDate
-            )
-        }
+//        metadataList.forEach { photoMetadata ->
+//            isSamePicDateAndWorkoutDate(
+//                photoMetadata.originalTime.toLocalDate(),
+//                workoutDate
+//            )
+//        }
+        isSamePicDateAndWorkoutDate(extractMetaInfo.originalTime.toLocalDate(), workoutDate)
 
-        return metadataList
+        return extractMetaInfo
     }
 
     /**
