@@ -70,6 +70,8 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.9") // MockK 코어 라이브러리
     testImplementation("com.ninja-squad:springmockk:4.0.2") // Spring 통합용 MockK
 
+    // 로깅 라이브러리
+    implementation("io.github.microutils:kotlin-logging:3.0.5")
 }
 
 kotlin {

@@ -13,6 +13,7 @@ import com.hc.workout.dto.request.SaveWorkoutRequest
 import com.hc.workout.infrastructure.repository.command.WorkoutCommandRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 @Transactional
@@ -24,7 +25,7 @@ class WorkoutCommandUseCaseImpl(
 ) : WorkoutCommandUseCase {
 
     // TODO 사진 저장 테스트
-    override fun saveWorkoutVerification(dto: SaveWorkoutRequest) {
+    override fun saveWorkoutVerification(dto: SaveWorkoutRequest, photoList: List<MultipartFile>) {
 
         val workoutDate = dto.workoutDateTime.toLocalDate()
 
@@ -33,7 +34,8 @@ class WorkoutCommandUseCaseImpl(
 
         // step02. 사진 검증 & 사진 S3에 저장
         // 사진 메타정보, URL -> PhotoUploadInfo (List)
-        val photoInfoList = dto.photoList.map { photo ->
+//        val photoInfoList = dto.photoList.map { photo ->
+        val photoInfoList = photoList.map { photo ->
             // step02-01. 사진 검증
             val photoMetadata =
                 photoUseCase.verifyWorkoutPicture(photo, workoutDate)
