@@ -20,8 +20,8 @@ class WorkoutVerificationEntity(
     @Comment("운동 날짜")
     val date: LocalDate,
 
-    @Comment("운동 만족도")
-    val satisfaction: Int,
+//    @Comment("운동 만족도")
+//    val satisfaction: Int,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

@@ -10,7 +10,7 @@ data class WorkoutVerification(
     val type: WorkoutType,
     val name: String,
     val date: LocalDate,
-    val satisfaction: Int,
+//    val satisfaction: Int,
     val photos: MutableList<WorkoutPhoto>,
 ) {
     companion object {
@@ -23,7 +23,7 @@ data class WorkoutVerification(
                 type = dto.workoutType,
                 name = dto.workoutName,
                 date = dto.workoutDateTime.toLocalDate(),
-                satisfaction = dto.workoutSatisfaction,
+//                satisfaction = dto.workoutSatisfaction,
                 photos = WorkoutPhoto.addWorkoutPhotoList(photoInfoList)
             )
         }

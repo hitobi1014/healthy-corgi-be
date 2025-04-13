@@ -30,7 +30,7 @@ class PhotoUseCaseTest {
         //given
         val workoutDate = LocalDate.of(2024, 12, 26)
         val mockMultipartFile = makeMockMultipartFile()
-        val multipartList = listOf(mockMultipartFile)
+//        val multipartList = listOf(mockMultipartFile)
         val fileName = "20241226_065800.jpg"
 
         val expectedMetadata = PhotoMetadata(
@@ -45,20 +45,23 @@ class PhotoUseCaseTest {
 
         every {
             photoUseCase.verifyWorkoutPicture(
-                multipartList,
+//                multipartList,
+                mockMultipartFile,
                 workoutDate
             )
-        } returns metadataList
+//        } returns metadataList
+        } returns expectedMetadata
 
         //when
-        val result = photoUseCase.verifyWorkoutPicture(multipartList, workoutDate)
+//        val result = photoUseCase.verifyWorkoutPicture(multipartList, workoutDate)
+        val result = photoUseCase.verifyWorkoutPicture(mockMultipartFile, workoutDate)
 
         //then
         assertNotNull(result)
-        assertEquals(fileName, result[0].fileName)
-        assertTrue(result[0].fileSize > 0)
-        assertEquals("image/jpeg", result[0].mimeType)
-        assertEquals(workoutDate, result[0].originalTime.toLocalDate())
+        assertEquals(fileName, result.fileName)
+        assertTrue(result.fileSize > 0)
+        assertEquals("image/jpeg", result.mimeType)
+        assertEquals(workoutDate, result.originalTime.toLocalDate())
     }
 
     @Test

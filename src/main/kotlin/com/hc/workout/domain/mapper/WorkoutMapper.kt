@@ -12,7 +12,7 @@ fun WorkoutVerificationEntity.toDomain(): WorkoutVerification {
         type = this.type,
         name = this.name,
         date = this.date,
-        satisfaction = this.satisfaction,
+//        satisfaction = this.satisfaction,
         photos = this.photos.toDomainList()
     )
 }
@@ -23,7 +23,7 @@ fun WorkoutVerification.toEntity(memberEntity: MemberEntity): WorkoutVerificatio
         type = this.type,
         name = this.name,
         date = this.date,
-        satisfaction = this.satisfaction,
+//        satisfaction = this.satisfaction,
         photos = this.photos.toEntityList(),
         member = memberEntity
     )

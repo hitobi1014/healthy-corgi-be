@@ -14,15 +14,13 @@ data class SaveWorkoutRequest(
      * 운동종류
      * 만족도
      */
-    @field:NotNull(message = "운동인증 사진은 필수입니다.")
-    val photo: List<MultipartFile>,
 
     @field:NotNull(message = "운동일시는 필수입니다.")
     val workoutDateTime: LocalDateTime,
 
-    @field:Min(1, message = "만족도는 1 이상이어야 합니다.")
-    @field:Max(5, message = "만족도는 5 이하여야 합니다.")
-    val workoutSatisfaction: Int,
+//    @field:Min(1, message = "만족도는 1 이상이어야 합니다.")
+//    @field:Max(5, message = "만족도는 5 이하여야 합니다.")
+//    val workoutSatisfaction: Int = 1,
 
     @field:NotNull(message = "운동 종류는 필수입니다.")
     val workoutType: WorkoutType,

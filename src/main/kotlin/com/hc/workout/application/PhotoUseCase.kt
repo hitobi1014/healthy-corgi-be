@@ -6,7 +6,7 @@ import java.time.LocalDate
 
 interface PhotoUseCase {
     fun verifyWorkoutPicture(
-        pictureList: List<MultipartFile>,
+        photo: MultipartFile,
         workoutDate: LocalDate,
-    ): List<PhotoMetadata>
+    ): PhotoMetadata
 }
