@@ -26,7 +26,13 @@ dependencies {
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.data:spring-data-commons")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // 로깅 라이브러리
+    implementation("io.github.microutils:kotlin-logging:3.0.5")
+    implementation("org.springframework.boot:spring-boot-starter-logging") // 스프링 부트 로깅 스타터
 
     // Database
     runtimeOnly("org.postgresql:postgresql")
@@ -35,16 +41,11 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 
-    // Development Tools
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
-
-    // Logging API
-    // SLF4J Logging API
-    implementation("org.slf4j:slf4j-api:2.0.9")
-    implementation("ch.qos.logback:logback-classic:1.4.11")
-
     // Querydsl Logging
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
+
+    // Development Tools
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     // 암호화
     implementation("org.springframework.security:spring-security-crypto:6.2.1")
@@ -63,6 +64,8 @@ dependencies {
         exclude(module = "mockito-core") // Mockito 제외
     }
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
     testRuntimeOnly("com.h2database:h2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
@@ -70,8 +73,6 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.9") // MockK 코어 라이브러리
     testImplementation("com.ninja-squad:springmockk:4.0.2") // Spring 통합용 MockK
 
-    // 로깅 라이브러리
-    implementation("io.github.microutils:kotlin-logging:3.0.5")
 }
 
 kotlin {
