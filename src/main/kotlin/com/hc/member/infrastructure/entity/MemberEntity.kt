@@ -10,6 +10,11 @@ import java.time.LocalDate
 @Entity
 @Table(name = "hc_member")
 class MemberEntity(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    val id: Int = 0,
+
     @Column(length = 50, unique = true)
     @Comment("로그인ID")
     var loginId: String? = null,
@@ -43,11 +48,6 @@ class MemberEntity(
      */
     @Comment("가입일자")
     val registeredAt: String,
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
-    val id: Int? = null,
 ) : DeleteEntity() {
 
     fun signupMember(loginId: String, password: String, birthday: LocalDate?) {

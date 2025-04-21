@@ -21,7 +21,7 @@ fun MemberEntity.toDomain(): Member {
 
 fun Member.toEntity(): MemberEntity {
     return MemberEntity(
-        id = this.id,
+        id = this.id!!,
         loginId = this.loginId,
         password = this.password,
         name = this.name!!,

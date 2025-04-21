@@ -1,7 +1,6 @@
 package com.hc.admin.ui.controller
 
 import com.hc.admin.dto.request.CreateMemberRequest
-import com.hc.member.application.command.MemberCommandUseCase
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

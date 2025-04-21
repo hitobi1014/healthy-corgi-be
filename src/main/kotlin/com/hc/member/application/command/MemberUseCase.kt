@@ -7,8 +7,7 @@ import com.hc.admin.dto.request.CreateMemberRequest
 import com.hc.member.domain.enum.Status
 import com.hc.member.dto.request.SignupMemberRequest
 import com.hc.member.dto.response.SignupInfoResponse
-import com.hc.member.infrastructure.repository.command.MemberCommandRepository
-import com.hc.member.infrastructure.repository.query.MemberQueryRepository
+import com.hc.member.infrastructure.repository.MemberRepository
 import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -19,16 +18,16 @@ private val logger = LoggerFactory.getLogger("MemberCommandUseCaseImpl")
 
 @Service
 @Transactional
-class MemberCommandUseCaseImpl(
+class MemberUseCase(
     private val memberQueryRepository: MemberQueryRepository,
-    private val memberCommandRepository: MemberCommandRepository,
+    private val memberRepository: MemberRepository,
     private val passwordEncoder: PasswordEncoder,
 
-    ) : MemberCommandUseCase {
+    ) : MemberUseCase {
     override fun createMemberByAdmin(dto: CreateMemberRequest): Member {
         val member = Member.addMemberByAdmin(dto, createAuthCode())
 
-        val savedMember = memberCommandRepository.save(member.toEntity())
+        val savedMember = memberRepository.save(member.toEntity())
 
         return savedMember.toDomain()
     }
